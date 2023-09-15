@@ -6,6 +6,7 @@
 
 Duration=1
 SECONDS=0
+# echo " " > QueueLevelStatusContinuous.csv
 echo " " > QueueLevelStatusContinuous22.csv
 
 while true
@@ -17,6 +18,22 @@ else
 # echo $(nfp-rtsym _customData) \
 # >> QueueLevelStatusContinuous22.csv
 nfp-rtsym _customData
+
+#echo $(nfp-reg \
+#xpb:Nbi0IsldXpbMap.NbiTopXpbMap.MacGlbAdrMap.MacCsr.MacTimeStampNsec. \
+#xpb:Nbi0IsldXpbMap.NbiTopXpbMap.MacGlbAdrMap.MacCsr.MacTimeStampSec. \
+#xpb:Nbi0IsldXpbMap.NbiTopXpbMap.TrafficManager.TrafficManagerReg.TrafficManagerConfig.SchedulerEnable. \
+#xpb:Nbi0IsldXpbMap.NbiTopXpbMap.TrafficManager.TrafficManagerReg.TrafficManagerConfig.ShaperEnable. \
+#xpb:Nbi0IsldXpbMap.NbiTopXpbMap.TrafficManager.TMQueueReg.QueueDropCount{0..31..8}. \
+#xpb:Nbi0IsldXpbMap.NbiTopXpbMap.TrafficManager.TMQueueReg.QueueDropCountClear{0..31..8} \
+#xpb:Nbi0IsldXpbMap.NbiTopXpbMap.TrafficManager.TMQueueReg.QueueStatus{0..31..8} \
+#xpb:Nbi0IsldXpbMap.NbiTopXpbMap.TrafficManager.TMQueueReg.QueueConfig{0..31..8}.DropEnable \
+#xpb:Nbi0IsldXpbMap.NbiTopXpbMap.TrafficManager.TMQueueReg.QueueConfig{0..31..8}.QueueSize \
+#xpb:Nbi0IsldXpbMap.NbiTopXpbMap.TrafficManager.TMShaperReg.ShaperStatus{{0..3},144}. \
+#xpb:Nbi0IsldXpbMap.NbiTopXpbMap.TrafficManager.TMShaperReg.ShaperMaxOvershoot{{0..3},144}. \
+#xpb:Nbi0IsldXpbMap.NbiTopXpbMap.TrafficManager.TMShaperReg.ShaperRate{{0..3},144}. \
+#) >> QueueLevelStatusContinuous.csv
+
 fi
 done
 
