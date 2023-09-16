@@ -1,23 +1,28 @@
 #!/bin/bash
 
-# Date - 22 Jan 2023
-# Author - Joydeep Pal
-# Description - Get Queue, Scheduler, Shaper Status continuously for a specific time.
+# Date:	22-Jan-2023
+# Author:	Joydeep Pal
+# Description:	Get Queue, Scheduler, Shaper Status continuously for a specific time.
 
-Duration=1
+source ~/Documents/tsn-project/configuration-variables.sh
+LOGFILE=${PROJECT_FOLDER}/data-pcap-csv/csv-temp/QueueLevelStatusContinuous22.csv
+truncate -s 0 $LOGFILE
+DURATION=10
 SECONDS=0
-# echo " " > QueueLevelStatusContinuous.csv
-echo " " > QueueLevelStatusContinuous22.csv
 
 while true
 do
-if [ $SECONDS -eq $((Duration+5)) ]; then
+if [ $SECONDS -ge $DURATION ]; then
 echo "Elapsed Time (using \$SECONDS): $SECONDS seconds"
+sleep 1
+echo 'Data measurement complete'
 break
 else
+{
+nfp-rtsym _customData
+} >> $LOGFILE
 # echo $(nfp-rtsym _customData) \
 # >> QueueLevelStatusContinuous22.csv
-nfp-rtsym _customData
 
 #echo $(nfp-reg \
 #xpb:Nbi0IsldXpbMap.NbiTopXpbMap.MacGlbAdrMap.MacCsr.MacTimeStampNsec. \
